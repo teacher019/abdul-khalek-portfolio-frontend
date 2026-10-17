@@ -1,16 +1,81 @@
-# React + Vite
+﻿# Abdul Khalek - Personal Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A personal portfolio website built with React and Vite to showcase my profile, skills and software development projects.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Personal profile and introduction
+- Skills and technologies
+- Projects loaded from a Django REST Framework API
+- Links to project source repositories
+- Responsive React-based interface
 
-## React Compiler
+## Technology Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- JavaScript
+- Vite
+- CSS
+- Django REST Framework API
 
-## Expanding the ESLint configuration
+## Live Backend API
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+https://abdul-khalek-portfolio-backend.onrender.com/api/projects/
+
+## GitHub Repositories
+
+- Frontend: https://github.com/teacher019/abdul-khalek-portfolio-frontend
+- Backend: https://github.com/teacher019/abdul-khalek-portfolio-backend
+
+## Local Installation
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/teacher019/abdul-khalek-portfolio-frontend.git
+cd abdul-khalek-portfolio-frontend
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Start the development server
+
+```bash
+npm run dev
+```
+
+Open the local URL shown in the terminal, usually:
+
+http://localhost:5173/
+
+## Build for Production
+
+```bash
+npm run build
+```
+
+To preview the production build locally:
+
+```bash
+npm run preview
+```
+
+## API Integration
+
+The frontend fetches project data from the deployed Django REST Framework endpoint:
+
+`https://abdul-khalek-portfolio-backend.onrender.com/api/projects/`
+
+The API returns project details in JSON format.
+
+## Author
+
+**Abdul Khalek**  
+Math and Physics Teacher | Web Developer | Flutter App Developer
+
+- GitHub: https://github.com/teacher019
+- LinkedIn: https://www.linkedin.com/in/abdul-khalek-sir/
