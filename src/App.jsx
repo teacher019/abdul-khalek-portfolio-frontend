@@ -46,6 +46,7 @@ function App() {
           <a href="#about">About</a>
           <a href="#skills">Skills</a>
           <a href="#projects">Projects</a>
+	  <a href="#blog">Blog</a>
           <a href="#contact">Contact</a>
         </div>
       </nav>
@@ -128,63 +129,104 @@ function App() {
 
         
       
-<section className="info-section" id="projects">
-  <p className="eyebrow">MY WORK</p>
-  <h2>Featured Projects</h2>
-  <p>
-    A selection of my work in web development, mobile apps,
-    and backend API development.
-  </p>
+	<section className="info-section" id="projects">
+  		<p className="eyebrow">MY WORK</p>
+  		<h2>Featured Projects</h2>
+  		<p>
+    		A selection of my work in web development, mobile apps,
+    		and backend API development.
+  		</p>
 
-  <div className="project-grid">
-    {apiLoading ? (
-      <p>Loading projects...</p>
-    ) : apiError ? (
-      <p>{apiError}</p>
-    ) : projects.length === 0 ? (
-      <p>No projects found.</p>
-    ) : (
-      projects.map((project) => (
-        <article className="project-card" key={project.id}>
-          <div className="project-icon">
-            {project.category?.toLowerCase().includes('flutter')
-              ? '📱'
-              : project.category?.toLowerCase().includes('frontend')
-                ? '🛒'
-                : '⚙️'}
-          </div>
+  		<div className="project-grid">
+    			{apiLoading ? (
+      			<p>Loading projects...</p>
+   			 ) : apiError ? (
+     			 <p>{apiError}</p>
+    			) : projects.length === 0 ? (
+      			<p>No projects found.</p>
+   			 ) : (
+     			 projects.map((project) => (
+       			 <article className="project-card" key={project.id}>
+         	 <div className="project-icon">
+            		{project.category?.toLowerCase().includes('flutter')
+             		 ? '📱'
+             		 : project.category?.toLowerCase().includes('frontend')
+              		  ? '🛒'
+              		  : '⚙️'}
+         	 </div>
 
-          <p className="project-type">
-            {project.category}
+         		 <p className="project-type">
+           		 {project.category}
+         		 </p>
+
+         		 <h3>{project.title}</h3>
+
+          		<p className="project-description">
+            		{project.description}
+         	 	</p>
+
+          	<div className="project-tags">
+            		{project.technologies?.map((technology) => (
+              		<span key={technology}>{technology}</span>
+            		))}
+         	 </div>
+
+          	<a
+            	className="project-link"
+            	href={project.github_url}
+           	 target="_blank"
+            	rel="noreferrer"
+         	 >
+           	 View on GitHub <span>↗</span>
+         	 </a>
+       		 </article>
+     		))
+   		)}
+ 	 	</div>
+	</section>
+
+
+	
+        <section className="info-section" id="blog">
+          <p className="eyebrow">LATEST ARTICLES</p>
+          <h2>Learning & Development Blog</h2>
+          <p>
+            Sharing ideas about education, programming, and technology
+            to help students and aspiring developers learn and grow.
           </p>
 
-          <h3>{project.title}</h3>
+          <div className="blog-grid">
+            <article className="blog-card">
+              <p className="blog-category">EDUCATION</p>
+              <h3>How to Learn Mathematics & Physics Effectively</h3>
+              <p className="blog-description">
+                Build strong fundamentals, practise problem-solving,
+                and connect formulas with real-life examples.
+              </p>
+              <span className="blog-read-time">Learning tips</span>
+            </article>
 
-          <p className="project-description">
-            {project.description}
-          </p>
+            <article className="blog-card">
+              <p className="blog-category">WEB DEVELOPMENT</p>
+              <h3>Getting Started with Python & Django</h3>
+              <p className="blog-description">
+                Discover how Python and Django help developers build
+                structured, reliable web applications and APIs.
+              </p>
+              <span className="blog-read-time">Programming guide</span>
+            </article>
 
-          <div className="project-tags">
-            {project.technologies?.map((technology) => (
-              <span key={technology}>{technology}</span>
-            ))}
+            <article className="blog-card">
+              <p className="blog-category">APP DEVELOPMENT</p>
+              <h3>Building Your First App with Flutter</h3>
+              <p className="blog-description">
+                Explore how Flutter and Dart can help you create
+                mobile applications from a single codebase.
+              </p>
+              <span className="blog-read-time">Beginner guide</span>
+            </article>
           </div>
-
-          <a
-            className="project-link"
-            href={project.github_url}
-            target="_blank"
-            rel="noreferrer"
-          >
-            View on GitHub <span>↗</span>
-          </a>
-        </article>
-      ))
-    )}
-  </div>
-</section>
-
-
+        </section>
 
         <section className="info-section contact-section" id="contact">
           <p className="eyebrow">LET'S CONNECT</p>
