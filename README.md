@@ -14,6 +14,10 @@ A responsive, single-page personal portfolio built with React and Vite. It prese
 - Contact section and links to professional profiles
 - Responsive layout
 - Production build using Vite
+- Individual blog article details
+- Like and Unlike actions with database-backed counts
+- Visitor comment submission
+- Comment moderation through Django Admin
 
 ## Technology Stack
 
@@ -70,8 +74,13 @@ Main files include `src/App.jsx`, `src/App.css`, `src/index.css`, and `src/main.
 
 ## Routes and Current Scope
 
-The current frontend is a single-page application using section anchors such as `#blog` and `#contact`. Separate `/login` and `/dashboard` routes are not currently implemented in `src/App.jsx`.
+## Routes and Current Scope
 
+The frontend is a single-page React application with section anchors such as `#blog` and `#contact`.
+
+Blog article details include Like/Unlike actions and a comment submission form connected to the Django REST Framework backend. Submitted comments require admin approval before appearing publicly.
+
+A separate `/login` route and custom frontend `/dashboard` route are not implemented. Blog post management and comment moderation are handled through Django Admin.
 Visitor comments, like actions, backend contact-form submission, and a custom post-management dashboard must not be considered complete until implemented and tested.
 
 ## Screenshots
@@ -85,10 +94,7 @@ Recommended screenshots to capture from the running application:
 
 ## Future Improvements
 
-- Add individual blog detail routes
-- Add visitor comment submission and moderation UI
 - Add secure login and post-management dashboard
-- Implement and test like functionality
 - Connect the contact form to a backend endpoint
 - Capture screenshots of the actual interface
 
