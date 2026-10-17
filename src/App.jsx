@@ -13,6 +13,9 @@ function App() {
   const [selectedArticle, setSelectedArticle] = useState(null)
   const [blogPosts, setBlogPosts] = useState([])
   const [blogLoading, setBlogLoading] = useState(true)
+  const [blogSearch, setBlogSearch] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState('All')
+  const [blogCategories, setBlogCategories] = useState(['All'])
 
   useEffect(() => {
     fetch('https://abdul-khalek-portfolio-backend.onrender.com/api/projects/')
@@ -48,7 +51,20 @@ function App() {
       return response.json()
     })
     .then((data) => {
-      setBlogPosts(Array.isArray(data) ? data : data.value ?? [])
+      const posts = Array.isArray(data) ? data : data.value ?? []
+
+      setBlogPosts(posts)
+
+      const categories = [
+      'All',
+      ...new Set(
+        posts
+        .map((post) => post.category?.trim())
+        .filter(Boolean)
+      ),
+      ]
+
+      setBlogCategories(categories)
     })
     .catch((error) => {
       console.error('Blog API error:', error)
@@ -58,7 +74,22 @@ function App() {
       setBlogLoading(false)
     })
 }, [])
+const filteredBlogPosts = blogPosts.filter((post) => {
+  const searchText = blogSearch.trim().toLowerCase()
 
+  const matchesSearch =
+    !searchText ||
+    post.title?.toLowerCase().includes(searchText) ||
+    post.excerpt?.toLowerCase().includes(searchText) ||
+    post.content?.toLowerCase().includes(searchText) ||
+    post.category?.toLowerCase().includes(searchText)
+
+  const matchesCategory =
+    selectedCategory === 'All' ||
+    post.category?.trim() === selectedCategory
+
+  return matchesSearch && matchesCategory
+})
   return (
 
     <div className="portfolio">
@@ -228,12 +259,45 @@ function App() {
         Sharing ideas about education, programming, and technology
         to help students and aspiring developers learn and grow.
       </p>
+      <div className="blog-filters">
+  <input
+    type="search"
+    className="blog-search"
+    placeholder="Search blog articles..."
+    value={blogSearch}
+    onChange={(event) => setBlogSearch(event.target.value)}
+    aria-label="Search blog articles"
+  />
 
+  <select
+    className="blog-category-filter"
+    value={selectedCategory}
+    onChange={(event) => setSelectedCategory(event.target.value)}
+    aria-label="Filter by category"
+  >
+    {blogCategories.map((category) => (
+      <option key={category} value={category}>
+        {category === 'All' ? 'All Categories' : category}
+      </option>
+    ))}
+  </select>
+
+  <button
+    type="button"
+    className="btn secondary"
+    onClick={() => {
+      setBlogSearch('')
+      setSelectedCategory('All')
+    }}
+  >
+    Reset Filters
+  </button>
+</div>
       {blogLoading ? (
         <p>Loading blog posts...</p>
-      ) : blogPosts.length > 0 ? (
-        <div className="blog-grid">
-          {blogPosts.map((post) => (
+      ) : filteredBlogPosts.length > 0 ? (
+      <div className="blog-grid">
+          {filteredBlogPosts.map((post) => (
             <article className="blog-card" key={post.id}>
               <p className="blog-category">
                 {post.category?.toUpperCase() || 'BLOG'}
@@ -268,7 +332,11 @@ function App() {
           ))}
         </div>
       ) : (
-        <p>No published blog posts available yet.</p>
+        <p>
+          {blogPosts.length === 0
+            ? 'No published blog posts available yet.'
+            : 'No blog posts match your search or selected category.'}
+      </p>
       )}
     </>
   )}
