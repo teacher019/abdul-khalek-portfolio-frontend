@@ -11,7 +11,7 @@ function App() {
   const [apiError, setApiError] = useState('')
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/projects/')
+    fetch('https://abdul-khalek-portfolio-backend.onrender.com/api/projects/')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Failed to load projects')
