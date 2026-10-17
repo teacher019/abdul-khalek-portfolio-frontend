@@ -1,4 +1,4 @@
-
+﻿
 import { useEffect, useState } from 'react'
 import './App.css'
 import profileImage from './assets/profile.png'
@@ -17,6 +17,62 @@ function App() {
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [blogCategories, setBlogCategories] = useState(['All'])
 
+  const [contactForm, setContactForm] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+  })
+  const [contactStatus, setContactStatus] = useState('')
+  const [contactSubmitting, setContactSubmitting] = useState(false)
+
+  const handleContactChange = (event) => {
+    const { name, value } = event.target
+    setContactForm((current) => ({ ...current, [name]: value }))
+  }
+
+  const handleContactSubmit = async (event) => {
+    event.preventDefault()
+    setContactStatus('')
+    setContactSubmitting(true)
+
+    try {
+      const response = await fetch(
+        'https://abdul-khalek-portfolio-backend.onrender.com/api/contact/',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(contactForm),
+        },
+      )
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        const firstError = Object.values(data).flat()[0]
+        throw new Error(
+          firstError || 'Could not send your message. Please try again.',
+        )
+      }
+
+      setContactStatus(
+        data.message || 'Your message has been sent successfully.',
+      )
+      setContactForm({
+        name: '',
+        email: '',
+        subject: '',
+        message: '',
+      })
+    } catch (error) {
+      console.error('Contact form error:', error)
+      setContactStatus(
+        error.message || 'Could not send your message. Please try again.',
+      )
+    } finally {
+      setContactSubmitting(false)
+    }
+  }
   useEffect(() => {
     fetch('https://abdul-khalek-portfolio-backend.onrender.com/api/projects/')
       .then((response) => {
@@ -109,7 +165,7 @@ const filteredBlogPosts = blogPosts.filter((post) => {
       <main>
         <section className="hero" id="home">
           <div className="hero-content">
-            <p className="eyebrow">TEACHER · DEVELOPER · LIFELONG LEARNER</p>
+            <p className="eyebrow">TEACHER Â· DEVELOPER Â· LIFELONG LEARNER</p>
 
             <h1>
               Hello, I'm <span>Abdul Khalek</span>
@@ -135,7 +191,7 @@ const filteredBlogPosts = blogPosts.filter((post) => {
                 href="/resume.pdf"
                 download="Abdul-Khalek-CV.pdf"
               >
-                Download CV ↓
+                Download CV â†“
             </a>
 
             </div>
@@ -155,7 +211,7 @@ const filteredBlogPosts = blogPosts.filter((post) => {
             <h3>Abdul Khalek</h3>
             <p>Educator & Developer</p>
             <div className="card-line" />
-            <p>Mathematics · Physics · Technology</p>
+            <p>Mathematics Â· Physics Â· Technology</p>
           </div>
         </section>
 
@@ -204,10 +260,10 @@ const filteredBlogPosts = blogPosts.filter((post) => {
        			 <article className="project-card" key={project.id}>
          	 <div className="project-icon">
             		{project.category?.toLowerCase().includes('flutter')
-             		 ? '📱'
+             		 ? 'ðŸ“±'
              		 : project.category?.toLowerCase().includes('frontend')
-              		  ? '🛒'
-              		  : '⚙️'}
+              		  ? 'ðŸ›’'
+              		  : 'âš™ï¸'}
          	 </div>
 
          		 <p className="project-type">
@@ -232,7 +288,7 @@ const filteredBlogPosts = blogPosts.filter((post) => {
            	 target="_blank"
             	rel="noreferrer"
          	 >
-           	 View on GitHub <span>↗</span>
+           	 View on GitHub <span>â†—</span>
          	 </a>
        		 </article>
      		))
@@ -326,7 +382,7 @@ const filteredBlogPosts = blogPosts.filter((post) => {
                   })
                 }
               >
-                Read Article →
+                Read Article â†’
               </button>
             </article>
           ))}
@@ -345,9 +401,76 @@ const filteredBlogPosts = blogPosts.filter((post) => {
         <section className="info-section contact-section" id="contact">
           <p className="eyebrow">LET'S CONNECT</p>
           <h2>Have a project in mind?</h2>
-          <p>Let's connect and create something useful together.</p>
+          <p>Send me a message using the form below, or connect with me on LinkedIn.</p>
+
+          <form className="contact-form" onSubmit={handleContactSubmit}>
+            <div className="contact-form-grid">
+              <label>
+                Name
+                <input
+                  type="text"
+                  name="name"
+                  value={contactForm.name}
+                  onChange={handleContactChange}
+                  maxLength={100}
+                  autoComplete="name"
+                  required
+                />
+              </label>
+
+              <label>
+                Email
+                <input
+                  type="email"
+                  name="email"
+                  value={contactForm.email}
+                  onChange={handleContactChange}
+                  autoComplete="email"
+                  required
+                />
+              </label>
+            </div>
+
+            <label>
+              Subject (optional)
+              <input
+                type="text"
+                name="subject"
+                value={contactForm.subject}
+                onChange={handleContactChange}
+                maxLength={200}
+              />
+            </label>
+
+            <label>
+              Message
+              <textarea
+                name="message"
+                value={contactForm.message}
+                onChange={handleContactChange}
+                maxLength={5000}
+                rows={6}
+                required
+              />
+            </label>
+
+            <button
+              className="btn primary"
+              type="submit"
+              disabled={contactSubmitting}
+            >
+              {contactSubmitting ? 'Sending...' : 'Send Message'}
+            </button>
+
+            {contactStatus && (
+              <p className="contact-status" role="status" aria-live="polite">
+                {contactStatus}
+              </p>
+            )}
+          </form>
+
           <a
-            className="btn primary"
+            className="btn primary contact-linkedin"
             href="https://www.linkedin.com/in/abdul-khalek-sir/"
             target="_blank"
             rel="noreferrer"
@@ -358,10 +481,14 @@ const filteredBlogPosts = blogPosts.filter((post) => {
       </main>
 
       <footer>
-        © {new Date().getFullYear()} Abdul Khalek. All rights reserved.
+        Â© {new Date().getFullYear()} Abdul Khalek. All rights reserved.
       </footer>
     </div>
   )
 }
 
 export default App
+
+
+
+
