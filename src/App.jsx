@@ -373,6 +373,7 @@ const filteredBlogPosts = blogPosts.filter((post) => {
                 className="btn secondary"
                 onClick={() =>
                   setSelectedArticle({
+		    slug: post.slug,
                     category: post.category?.toUpperCase() || 'BLOG',
                     title: post.title,
                     description: post.excerpt,

@@ -39,3 +39,144 @@
     padding: 28px 16px;
   }
 }
+
+.blog-like-section {
+  margin: 32px 0;
+  padding: 20px 0;
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.blog-like-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #1f2937;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.blog-like-button:hover:not(:disabled) {
+  background: #f3f4f6;
+  transform: translateY(-1px);
+}
+
+.blog-like-button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.blog-like-error {
+  margin-top: 12px;
+  color: #dc2626;
+  font-size: 0.9rem;
+}
+
+/* Blog comments */
+.blog-comments {
+  margin: 36px 0;
+  padding-top: 28px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.blog-comments h2 {
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+.blog-comments h3 {
+  margin: 24px 0 14px;
+}
+
+.blog-comment-list {
+  display: grid;
+  gap: 16px;
+  margin: 20px 0 30px;
+}
+
+.blog-comment {
+  padding: 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #f9fafb;
+  overflow-wrap: anywhere;
+}
+
+.blog-comment h3 {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+}
+
+.blog-comment p {
+  margin: 0 0 10px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+.blog-comment small {
+  color: #6b7280;
+}
+
+.blog-comment-form {
+  display: grid;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.blog-comment-form label {
+  font-weight: 600;
+}
+
+.blog-comment-form input,
+.blog-comment-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #111827;
+  font: inherit;
+}
+
+.blog-comment-form input:focus,
+.blog-comment-form textarea:focus {
+  outline: 2px solid #93c5fd;
+  outline-offset: 1px;
+  border-color: #2563eb;
+}
+
+.blog-comment-form textarea {
+  resize: vertical;
+}
+
+.blog-comment-form button {
+  justify-self: start;
+  margin-top: 8px;
+}
+
+.blog-comment-status {
+  margin-top: 8px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+  .blog-comments h2 {
+    font-size: 1.5rem;
+  }
+
+  .blog-comment {
+    padding: 14px;
+  }
+
+  .blog-comment-form button {
+    justify-self: stretch;
+  }
+}
