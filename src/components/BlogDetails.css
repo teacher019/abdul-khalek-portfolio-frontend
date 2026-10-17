@@ -1,0 +1,41 @@
+.blog-details {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.blog-back-button {
+  margin-bottom: 28px;
+  padding: 10px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.blog-details h1 {
+  margin: 12px 0 20px;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1.2;
+}
+
+.blog-details-intro {
+  font-size: 1.15rem;
+  line-height: 1.8;
+}
+
+.blog-article-content {
+  margin: 30px 0;
+  line-height: 1.9;
+}
+
+.blog-article-content p {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+  .blog-details {
+    padding: 28px 16px;
+  }
+}

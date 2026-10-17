@@ -2,13 +2,14 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import profileImage from './assets/profile.png'
-
+import BlogDetails from './components/BlogDetails'
 
  
 function App() {
   const [projects, setProjects] = useState([])
   const [apiLoading, setApiLoading] = useState(true)
   const [apiError, setApiError] = useState('')
+  const [selectedArticle, setSelectedArticle] = useState(null)
 
   useEffect(() => {
     fetch('https://abdul-khalek-portfolio-backend.onrender.com/api/projects/')
@@ -187,47 +188,102 @@ function App() {
 
 
 	
-        <section className="info-section" id="blog">
-          <p className="eyebrow">LATEST ARTICLES</p>
-          <h2>Learning & Development Blog</h2>
-          <p>
-            Sharing ideas about education, programming, and technology
-            to help students and aspiring developers learn and grow.
-          </p>
-
-          <div className="blog-grid">
-            <article className="blog-card">
-              <p className="blog-category">EDUCATION</p>
-              <h3>How to Learn Mathematics & Physics Effectively</h3>
-              <p className="blog-description">
-                Build strong fundamentals, practise problem-solving,
-                and connect formulas with real-life examples.
+                <section className="info-section" id="blog">
+          {selectedArticle ? (
+            <BlogDetails
+              article={selectedArticle}
+              onBack={() => {
+                setSelectedArticle(null)
+              }}
+            />
+          ) : (
+            <>
+              <p className="eyebrow">LATEST ARTICLES</p>
+              <h2>Learning & Development Blog</h2>
+              <p>
+                Sharing ideas about education, programming, and technology
+                to help students and aspiring developers learn and grow.
               </p>
-              <span className="blog-read-time">Learning tips</span>
-            </article>
 
-            <article className="blog-card">
-              <p className="blog-category">WEB DEVELOPMENT</p>
-              <h3>Getting Started with Python & Django</h3>
-              <p className="blog-description">
-                Discover how Python and Django help developers build
-                structured, reliable web applications and APIs.
-              </p>
-              <span className="blog-read-time">Programming guide</span>
-            </article>
+              <div className="blog-grid">
+                <article className="blog-card">
+                  <p className="blog-category">EDUCATION</p>
+                  <h3>How to Learn Mathematics & Physics Effectively</h3>
+                  <p className="blog-description">
+                    Build strong fundamentals, practise problem-solving,
+                    and connect formulas with real-life examples.
+                  </p>
+                  <span className="blog-read-time">Learning tips</span>
+                  <button
+                    className="btn secondary"
+                    onClick={() => setSelectedArticle({
+                      category: 'EDUCATION',
+                      title: 'How to Learn Mathematics & Physics Effectively',
+                      description: 'Build strong fundamentals and learn through regular practice.',
+                      content: [
+                        'Start by understanding the basic concepts before memorising formulas.',
+                        'Practise problems regularly, write each step clearly, and check your answers.',
+                        'Connect mathematical and physical principles with real-life examples. Review mistakes and learn from them.'
+                      ]
+                    })}
+                  >
+                    Read Article →
+                  </button>
+                </article>
 
-            <article className="blog-card">
-              <p className="blog-category">APP DEVELOPMENT</p>
-              <h3>Building Your First App with Flutter</h3>
-              <p className="blog-description">
-                Explore how Flutter and Dart can help you create
-                mobile applications from a single codebase.
-              </p>
-              <span className="blog-read-time">Beginner guide</span>
-            </article>
-          </div>
+                <article className="blog-card">
+                  <p className="blog-category">WEB DEVELOPMENT</p>
+                  <h3>Getting Started with Python & Django</h3>
+                  <p className="blog-description">
+                    Discover how Python and Django help developers build
+                    structured, reliable web applications and APIs.
+                  </p>
+                  <span className="blog-read-time">Programming guide</span>
+                  <button
+                    className="btn secondary"
+                    onClick={() => setSelectedArticle({
+                      category: 'WEB DEVELOPMENT',
+                      title: 'Getting Started with Python & Django',
+                      description: 'Learn the foundations of backend web development with Python.',
+                      content: [
+                        'Learn Python variables, conditions, loops, functions, and data structures first.',
+                        'Django helps organise web applications with models, views, URLs, and templates.',
+                        'Build a small project, practise database operations, and learn how to create and test APIs with Django REST Framework.'
+                      ]
+                    })}
+                  >
+                    Read Article →
+                  </button>
+                </article>
+
+                <article className="blog-card">
+                  <p className="blog-category">APP DEVELOPMENT</p>
+                  <h3>Building Your First App with Flutter</h3>
+                  <p className="blog-description">
+                    Explore how Flutter and Dart can help you create
+                    mobile applications from a single codebase.
+                  </p>
+                  <span className="blog-read-time">Beginner guide</span>
+                  <button
+                    className="btn secondary"
+                    onClick={() => setSelectedArticle({
+                      category: 'APP DEVELOPMENT',
+                      title: 'Building Your First App with Flutter',
+                      description: 'Begin mobile development with Flutter and Dart.',
+                      content: [
+                        'Install Flutter and configure an editor and Android emulator.',
+                        'Learn Dart basics and build interfaces using Flutter widgets.',
+                        'Start with a simple app, test it on an emulator, and add features one at a time.'
+                      ]
+                    })}
+                  >
+                    Read Article →
+                  </button>
+                </article>
+              </div>
+            </>
+          )}
         </section>
-
         <section className="info-section contact-section" id="contact">
           <p className="eyebrow">LET'S CONNECT</p>
           <h2>Have a project in mind?</h2>
